@@ -19,10 +19,7 @@ class Program
         var serviceProvider = services.BuildServiceProvider();
         ServiceHelper.Initialize(serviceProvider);
         var app = serviceProvider.GetService<App>();
-        await app.Run(args, serviceProvider);
-      
-
-       
+        await app.Run(args, serviceProvider);  
     }
 
    
