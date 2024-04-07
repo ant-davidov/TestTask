@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestTask.Application.Interfaces;
 using TestTask.Application.Models;
 
@@ -18,7 +13,11 @@ namespace TestTask.Application.Services.DataProvider
         }
         public Arguments GetData()
         {
-            return new Arguments();
+            Arguments args = new Arguments();
+            _configuration.GetSection("Arguments").Bind(args);
+            if (args == null)
+                throw new Exception("Args or file not found");
+            return args;
         }
     }
 }

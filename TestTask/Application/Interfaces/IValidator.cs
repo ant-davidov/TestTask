@@ -2,8 +2,8 @@
 
 namespace TestTask.Application.Interfaces
 {
-    internal interface IDataProvider
+    internal interface IValidator
     {
-        Arguments GetData();
+        void Validate(Arguments args);
     }
 }

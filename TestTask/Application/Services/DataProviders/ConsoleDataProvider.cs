@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestTask.Application.Handlers;
+﻿using TestTask.Application.Handlers;
 using TestTask.Application.Interfaces;
 using TestTask.Application.Models;
 
@@ -17,7 +12,9 @@ namespace TestTask.Application.Services.DataProvider
             { "--file-log", new FileArgumentHandler() },
             { "--file-output", new FileOutputArgumentHandler() },
             { "--address-start", new AddressStartArgumentHandler() },
-            { "--address-mask", new AddressMaskArgumentHandler() }
+            { "--address-mask", new AddressMaskArgumentHandler() },
+            { "--time-start", new StartTimeArgumentHandler() },
+            { "--time-end", new EndTimeArgumentHandler() }
         };
         public ConsoleDataProvider(string[] args)
         {
@@ -29,7 +26,11 @@ namespace TestTask.Application.Services.DataProvider
             for (int i = 0; i < _args.Length; i++)
             {
                 if (_argumentHandlers.TryGetValue(_args[i].ToLower(), out var handler))
+                {
+                    if (i + 1 >= _args.Length)
+                        throw new IndexOutOfRangeException($"The key is written ({_args[i]}) but the value is not written");
                     handler.Handle(_args[i], ref parsedArgs, ref i, _args);
+                }
                 else
                     throw new ArgumentException($"Unknown argument: {_args[i]}");
             }

@@ -1,39 +1,20 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestTask.Application.Services;
+﻿using TestTask.Application.Services;
 
 namespace TestTask.Presentation
 {
-
-    internal class App 
+    internal class App
     {
-        private readonly IConfiguration _config;
-        public App(IConfiguration config)
+        public void Run()
         {
-            _config = config;
-        }
-
-        public async Task Run(string[] args, IServiceProvider provider)
-        {
-          
             try
             {
-              
-                var a = new Class1(provider);
-                await a.Start();
+                var handler = new Handler();
+                handler.Start();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex.Message);
             }
-            
         }
-
-       
     }
 }
